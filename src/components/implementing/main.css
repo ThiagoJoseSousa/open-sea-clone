@@ -1,0 +1,120 @@
+.main__item{
+    background-color: aliceblue;
+    border-radius: 16px;
+    color: white;
+    height: calc(1.14 * (100vw - 32px));
+    margin:1rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.main__item-column-left{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.main__item-img{
+    height: 100%;
+    width: 100%;
+}
+
+.main__item-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.main__item-data {
+    position: absolute;
+    inset:2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.main__item-icon{
+    display: none;
+}
+
+.main__item-column{
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.main__item-box{
+    background-color: rgba(255, 255, 255, 0.24);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    height: 60px;
+    padding:5px 12px;
+    text-align: center;
+}
+
+.main__item-data-groups{
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.main__item-wrapper{
+    display: flex;
+    gap:1rem;
+}
+
+.main__item-title{
+    font-size: 1.5rem;
+    max-width: 12ch;
+    display: flex;
+    align-items: center;
+}
+
+.main__item-info{
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+@media screen and (max-width:600px) {
+    div.swiper-slide.landing-items__li {
+        height: 350px;
+        width: 320px;
+    }
+    .section-title{
+        font-size: 20px;
+    }
+    .main__item-column-right{
+        display: none;
+    }
+    .main__item-wrapper{
+        gap:0.5rem;
+    }
+    .main__item-column-left{
+        font-size: 0.5rem;
+        gap:0.5rempx;
+    }
+}
+
+@media screen and (min-width:768px){
+    .main__item-icon{
+        display: block;
+        height: 62px;
+        width: 62px;
+    }
+    .main__item {
+        height: calc(0.75 * (100vw - 32px));
+    }
+    .main__item-title{
+        max-width: none;
+    }
+}
+
+@media screen and (min-width:1024px){
+    .main__item {
+        height: calc(0.33 * (100vw - 64px));
+    }   
+}

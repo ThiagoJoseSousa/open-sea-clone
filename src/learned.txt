@@ -1,0 +1,135 @@
+always think on the html strcuture (mobile) first. you can make classes later
+Faça o minimo de elementos html possível, uma img por exemplo não precisa de um wrapper,
+apenas width e padding/bg setada para ter contraste.
+
+Leitura grossa:
+https://stackoverflow.com/questions/35371457/what-tag-should-be-used-for-a-logo-element-if-the-logo-is-text
+
+<i> é pra texto itálico, n pra icon. Prática terrível de bons websites
+https://stackoverflow.com/questions/11135261/should-i-use-i-tag-for-icons-instead-of-span
+
+As tags DIV e SPAN são muito similares, com a única diferença que enquanto a tag span serve ao código a nível de linha, a tag div serve ao código a nível de bloco. Ao agrupar elementos em bloco, a tag div trabalha com um volume maior de informações e formatações.
+
+Divs are naturally block-level elements
+
+There's no real right or wrong, but as a rule of thumb:
+
+For anything you want a certain, fixed size, use PX
+For anything you want to scale with font-size, use EM
+For anything you want to scale to the available space in the window/container, use %
+
+hamburger é feito com input checkbox + label
+input é elemento vazio
+
+PRa centralizar um elemento dentro de um container (como um botão ou label) o coloque como flex, e coloque o child com margin:auto;
+(Na real, margin não centralizava por conta do position relative, que colocava a div no inicio do container)
+É melhor colocar flex no parent e margin auto no child mesmo, pois já calcula a height da child. 
+com margin ou position fica sempre 50% e etc. isso dá uma Atrapalhada no cálculo
+
+Para fazer margem em volta do limite da tela, coloca margin:0px quant.px; no elemento UL, por dentro é gap
+
+Melhor jeito de centralizar uma div: Flex no parent, margin auto no child
+
+As áreas clicaveis da nav devem ser botões
+
+vw overflows because of the vertical scroll. 
+Use max-width:100% to fix that.
+
+@ creates an if. @media screen and (min-width:300px)
+
+É uma boa prática criar classes com o nome da screen. Para dar display njone e etc. Até pra ler fica melhor. Ex: desktop--show
+
+Any of the new HTML5 elements can be used multiple times, apart from the new MAIN element, which can only be used once.
+header for introductory information or category, nav for links
+
+Para criar class boas BEM:
+cria um bloco (landing, por exemplo)
+os blocos descendentes do landing podem ser landing-descendente.
+landing-descendente. aí, quando for um elemento descendente 
+que não é um bloco novo, use __
+
+When your swiper slider initializes too big (sometimes even far, far wider than the page),
+this could happen from the slider wrapper element being inside a CSS flexbox/grid container.
+The following styles fix the issue:
+
+.swiper-container {
+  width: 100%;
+  max-width: 100%;
+  max-height: 100vh;}
+
+
+as propriedades do Swiper normal são props no React swiper
+o QUE IMPORTA nos slides wiper caso o swiper-slide n esteja setado: O conteúdo.
+No slide principal que tem prop. O slide vai se adaptar ao tamanho do conteúdo
+^^^ Pode ser mas o podemos setar manualmente pelo swiper-slide tbm, 
+desde que o slidesPerView seja "auto", caso não seja, a width vai automática pro JS e aí da overwrite
+
+Os argumentos normais do js viram props
+
+Tutorial de swiper:
+https://www.youtube.com/watch?v=kmjIl6FdS8o&ab_channel=EnvatoTuts%2B
+
+Mas pelo que aprendi o useEffect precisa dar f5 na página pra atualizar.
+
+O center dá uma trolada 
+
+Então, pra ter aprendido na eficiência máxima o negócio era ter visto o código das DEMOS
+https://swiperjs.com/demos
+o método breakpoint faria total diferença, coisa que só fui ver na demo. 
+Mas pelo menos aprendi a selecionar a class do elemento, isso já arrumou o brekpoint auto
+
+pra alinhar img dentro de div com cover é emlhor position relative msm, object fit é só pros q n foram cover
+
+Pra margin-auto funcionar, tds os wrapper precisam ter uma width setada. Caso ainda n funfe, é display flex no wrapper
+
+Propriedade pro text não ficar quebrando linha e mostrar reticências (...)
+    white-space: nowrap;
+    text-overflow: ellipsis;
+Mt bom para títulos de cards responsivos.
+
+margin auto e space between são basicamente iguais em 2 elementos, mas qnd tem vários o margin right funciona melhor dependendo
+do objetivo
+
+One way we can try to get all the flex items to have the same base size is by declaring flex: 1 on all of them:
+
+.flex-parent { display: flex; }
+.flex-parent > * { flex: 1; }
+
+flexchild { flex:1} vai fazelos ocupar o msm tamanhop
+
+https://stackoverflow.com/questions/70821850/swiper-slidesperview-auto-wont-work-for-me
+
+PS: as classes são customizaveis como html normal, só o JS q pode dar overwrite
+Se n tiver background color, o filter drop shadow n funfa. 
+
+O que buga muito é a unidade vw. É sempre melhor usar a unidade porcentagem 100% pois n calcula scroll.
+Então sete o wrapper pra 100%, ele vai pegar 100% da página se for display block solto.
+Wraper pra 100% pra depois child pra 100% é mt melhor que child 100vw
+
+TEM LIBRARY DE ICONE?? MEU DEUSSSSSSSSSSSSSSSSSSSSS
+
+https://www.youtube.com/watch?v=-sF5KsEo6gM&ab_channel=WebDevSimplified
+Height tem que ser min-height. Dá pra colocar flex-column e o conteúdo ir extendendo a height.
+No caso de ocupar uma tela é 100dvh, 100 vh buga.
+responsividade do q n for wrapper é media query
+
+Setei a width da div pra 20%, e coloquei uma child div nela. Aí usei o flex, justify-content:end. E aí otexto foi pro final!
+
+O cara fez height adaptativo pro gif height: calc(1.14 * (100vw - 32px));
+
+COMO CENTRALIZAR UMA IMAGEM (ELEMENTO, E N BG)
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+É contra intuítivo mas foi. Ele preserva o aspecto da imagem e centraliza
+
+Pra fazer uma height adaptativa a width, é só usar vw na height! com calc/media query.
+
+Usar EM + variável no font-size ajuda p carai na responsividade, esconder botões/mudar a font-size no media.
+
+WORK FLOW: PENSAR EM TERMOS DE CSS, APENAS BLOCK/INLINE. Criar semantica só dps, fácilmente conquistado
+ao colcoar classes nos elementos
+
+faz o wrap nos elementos certos q é sem erro adicionar + dimensões.
+
+visibility pra dropdowns é a boa, display none some na hora ( n tem transição) e opacity continua na tela. Visibility continua p screen readers(con)

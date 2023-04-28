@@ -1,0 +1,126 @@
+.ranking {
+    padding: 0 1rem;
+}
+
+.ranking__filters{
+    display: block;
+    background-color: white;
+    filter: drop-shadow(0px 2px 0px rgba(214, 214, 214, 0.5));
+}
+
+.ranking__filters-line{
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+    border-style: solid;
+    border: 0px;
+    border-width: 2px;
+    margin-top: 1rem;
+    padding: 1rem 0px;
+}
+
+.ranking__filters-line ul{
+    list-style: none;
+}
+
+.ranking__results-title{
+    color: rgb(179, 164, 164);
+    display: flex;
+    font-size: 0.8rem;
+    margin-top: 1.5em;
+    text-transform: uppercase;
+}
+
+.ranking__filters-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.ranking__filters-right{
+    align-items: center;
+    display: flex;
+    font-size: 1.1rem;
+    gap: 1rem;
+}
+
+.ranking__results-wrapper{
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.ranking__results{
+    display: flex;
+    height: 100%;
+    gap:5%;
+}
+
+.ranking__results-item{
+    display: flex;
+    font-weight: 500;
+    height: 96px;
+    align-items: center;
+    text-align: center;
+}
+
+.ranking__results-item-column{
+    align-items: center;
+    justify-content: end;
+    display: flex;
+    text-align: right;
+}
+
+.ranking__filters-time{
+    display: flex;
+    border-style: solid;
+    border-width: 0.1px;
+    border-radius: 10px;
+}
+
+.ranking__filters-time li{
+    font-size: 1rem;
+    padding: 5px;
+}
+
+.ranking__results-icon{
+    display: flex;
+    height: 70px;
+    width: 70px;
+    border-radius:10px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.ranking__results-left, .ranking__results-right{
+    flex:1;
+}
+
+.ranking__results-item-left{
+    margin-right: auto;
+}
+
+.ranking__results-text{
+    padding: 1rem;
+}
+
+.ranking__results-item-right{
+    width: 20%;
+    text-align: right;
+}
+
+li select{
+    font-size: 1rem;
+    padding: 6px;
+    border-style: solid;
+    border-width: 0.1px;
+    border-radius: 10px;
+}
+
+.ranking__filters-view{
+    font-size: 1rem;
+    padding: 5px;
+    border-style: solid;
+    border-width: 0.1px;
+    border-radius: 10px;
+}
