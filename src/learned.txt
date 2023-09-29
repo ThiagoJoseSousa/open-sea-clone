@@ -133,3 +133,342 @@ ao colcoar classes nos elementos
 faz o wrap nos elementos certos q é sem erro adicionar + dimensões.
 
 visibility pra dropdowns é a boa, display none some na hora ( n tem transição) e opacity continua na tela. Visibility continua p screen readers(con)
+
+padding-top no body para tirar o navbar é melhor ao invés de margin top no titulo, pois o componente fica mais reusável.
+
+Pra fazer o mesmo tamanho de width/height (1:1), coloque um container com padding-top 100% e width 100%. A pading top pegará o mesmo valor da width, então coloque um filho com height 100%, height 100% positioned
+
+.container {
+  background-color: red;
+  width: 100%;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
+  position: relative; /* If you want text inside of it */
+}
+
+/* If you want text inside of the container */
+.text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+border fica melhor se não for um simples "black", sendo cinza é bom p ex
+
+pra inverter vertical é usar transform:scaleY(-1)
+
+border é TEC. tamanho estilo cor
+
+Eu já fiz elemento draggable, é JS mousedown mouse up etc.
+
+O react precisa ter controle dos elementos checados via state. HTML e css são outras linguagens, React usa o JS e por isso precisa:
+Ele mesmo setar o check no elemento, perguntando se o valor do state "selected" é o mesmo do elemento. Se for === true, checar.
+
+Tá, se eu quiser baixar um arquivo pelo firebase preciso do gSutil (google sutil) instalado.
+Na própria page do firebase de documentação storage de download, já mostra como setar o CORS
+
+https://css-tricks.com/everything-you-need-to-know-about-date-in-javascript/
+
+Octal literals and octal escape sequences are deprecated and will throw a SyntaxError in strict mode. (zeros before numbers, e.g 08, 09, 00009)
+commas are used in its place. 
+
+Caso você tenha um fetch no useEffect, precisa colocar tudo dentro de uma função async invocada dentro da função argumento do useEffect pra usar o resultado.
+só n pode ser o return né, que aí é a função de cleanup
+
+O método split() divide uma String em uma lista ordenada de substrings, coloca essas substrings em um array e retorna o array.
+
+//as ref do firebase de diferentes APIs são diferentes também, levando diferentes types e formatos de path.
+
+No react JS, não é correto o uso de square brackets envolvendo o if, apesar de ser correto no uso de outras condicionais.
+
+O spread operator funciona com objetos, o que estava bugando era o console.log, pela segunda vez. Preciso achar uma alternativa pra ele, é mt útil.
+
+o console log não suporta spread operator de obj, mas um objeto com o spread operator dentro dele funciona no console log.
+
+IMPORTANTE: O spread operator de objetos e o de arrays são diferentes.
+ O spread operator em objetos separa as propriedades, enquanto o de array, os items. Ou seja, "under the hood" os métodos são diferentes. 
+ Apesar do mesmo nome. O spread usa até em string, pra separar os caractéres!
+ Por isso no contexto de um objeto, o spread funciona, e sem um, não. 
+
+Mas o console log pelo jeito é um hábito ruim, a forma ideal seria ter breakpoints no devTools. 
+Estava pssando o prevState ao invés do data received, breakpoint é a boa msm.
+
+console log / toda execução de função precisa de um semi colon depois ou pode bugar no react (hooks)
+
+Components unmount if the component replacing it is different or has a different key.
+
+If you have a <Link /> in the view, and you tell it to render an <Image /> instead, then the Link has to be removed in order for the view to be accurate -- you told it not to render a Link!
+
+The Link is therefore unmounted, and the Image is resultingly mounted.
+
+If you have a <Link one /> in the view, and you tell it to render a <Link two />, the component is updated instead of unmounted. The props are simply changed, but nothing is removed. Even though you "replaced" Link one with Link two, it did not unmount, because the component was the same in both cases. It simply updated that component.
+
+The second parameter to setState() is an optional callback function. This argument will be executed once setState() is completed and the component is re-rendered.
+ The callback function is guaranteed to run after the state update has been applied. <- Péssimo clickbait
+ Normalmente o React faz renderiza diversos setStates ao mesmo tempo, pra economizar renders (performance), mas tem isso no setState ^^^^ *bait
+
+
+ Calling the set function does not change state in the running code:
+
+function handleClick() {
+  console.log(count);  // 0
+
+  setCount(count + 1); // Request a re-render with 1
+  console.log(count);  // Still 0!
+
+  setTimeout(() => {
+    console.log(count); // Also 0!
+  }, 5000);
+}
+This is because states behaves like a snapshot. Updating state requests another render with the new state value, but does not affect the count JavaScript variable in your already-running event handler.
+
+If you need to use the next state, you can save it in a variable before passing it to the set function:
+
+react also just changes the properties that are different, if it's not specified, wont change. 
+
+Pra chamar função do JS que altera state, usa um useEffect, ou vai ficar criando um loop infinito e criar 1 bilhão de renderização por conta
+ da execução da função. Vira uma árvore de criação, dá memory leak, 1 cria 1, que criam 2,4...
+
+dá pra fazer error handling em promise com if! ex se algo n chegar eu n faço a outr aparte da promise
+mas usam o try e o catch no caso de error de retrieve 
+
+
+//maybe change the storage to keep all the data in a topic and be filtering by js functions, by owners
+
+Usar um bloco de notas pra ir colocando valores
+
+JSX elements directly inside a map() call always need keys!
+
+sempre pensar em state, dá pra fazer mt conditional rendering c isso, className por exemplo. 
+
+
+Pasta organização tem mais
+
+
+Pra controlar um input checkbox, põe um onclick no Label, e o checked da checkbox é controalda pelo state que é mudado no label. 
+Dá pra encurtar textos com template string (colocando condicionais lá dentro) ao invés de retornar duas strings difernetes
+
+Because arrow functions use curly brackets, {} you cannot implicitly return an object. To return an object using an arrow function, you must either use the return keyword or wrap the curly brackets in round brackets.
+
+Promise.all
+If the iterable contains non-promise values, they will be ignored, but still counted in the returned promise array value (if the promise is fulfilled,
+if rejected no item will be resolved)
+
+Use funções async fora do setState, dessa forma, a promise não retornará undefined e o comportamento será previsível.
+
+https://www.developerway.com/posts/react-key-attribute
+
+Wrap a component in memo to get a memoized version of that component. This memoized version of your component will usually not be re-rendered when its parent component is re-rendered as long as its props have not changed. 
+
+import { memo } from 'react';
+
+const SomeComponent = memo(function SomeComponent(props) {
+  // ...
+});
+
+memo returns a new React component. It behaves the same as the component provided to memo except that React will not always re-render it when its parent is being re-rendered unless its props have changed.
+
+Keys as IDs (strings) are better because if you don't specify the key, when you sort the array in some way, react will identify the component by its default and usually ommited key (the arr index). It will then re-render a wrong component.
+
+filter retorna o item baseado se é o retorno da callback é true ou false. 
+
+Utilize as dependencias no mesmo escopo das outras dependencias relacionadas. Ex: Usei o swiper, a função de criar swipers slides está nesse mesmo componente. O Javascript pode bugar se n for feito assim e é um bug chato.
+O swiper tem coisas JS tbm , por isso fica melhor a dep 
+
+position absolute e top:0 + bottom 0 faz a div ter height da tela toda
+
+pra fazer uma div escura, coloque background-color:rgbA <- o A não vai mudar a opacidade da div mas vai deixar a cor transparente
+
+box shadow coloca a sombra na caixa ao redor do elemento, enquanto filter:dropshadow() vai colocar ao redor do elemento visual. Ex um triangulo terá sombras
+no retangulo de seu espaço, enquanto drop shadow terá sombra ao redor das linhas do triângulo 
+
+o objeto que se coloca no useContext pelo child é exportado pelo provedor (ele usa um createContext fora do componente)
+serve pra ser deep infinito 
+na documentação n tem o nome pq eles estão no mesmo arquivo (a referencia é valida)
+
+criar um componente pra manter state só é bom se eles sempre forem renderizados juntos. Se for deep ou unrelated melhor context
+na real context é OP, mt melhor usar ele pra compartilhar state entre componentes
+
+a firebase request does not include nested docs
+
+useLocation from react router is good, it returns an object
+
+é bom deixar poucas abas abertas no Visual Studio/abrir side tab, caso você não deixe, terá de procurar com o mouse no sistema de arquvios o que deixará muito mais lento o acesso.
+Caso deixe poucas abas abertas, a história é diferente, 
+
+validação na hora de criar o componente é mt bom pra undefined values
+pra adicionar no carrinho é melhor adicioanr items vindo de props, do que Indexes.
+
+componentUnmount e etc hj em dia viram useEffects
+
+usa o position fixed para uma div black da página. Caso use absolute vai, a div vai ser posicionada no container relative. Fixed é na window
+
+o position absolute + translate 50% é uma solução verdadeira... Achei que era só quebra-galho mas realmente é funcional.
+o efeito é transform, translate é propriedade do transform
+
+as pseudo classes :valid e :invalid são adicionados aos inputs de email/password, que valida automaticamente utilizando regex
+
+async e await utilizam o try e catch para manipular erros. A variavel é declarada fora do try/catch é ressignificada conforme a promise é resolvida.
+O try e catch identificam automaticamente qual é a promise dentro de seu escopo
+
+funções q retornam promises diretamente, precisam ter um await atrás... O react é bom só com promessas já resolvidas 
+
+input file uploads only on form submission or via JS, its value is just the path on HTML
+
+https://blog.filestack.com/tutorials/how-to-read-uploaded-file-content-in-javascript/
+
+escape strings (mt util)
+In JavaScript, you can escape a string by using the \ (backslash) character. The backslash indicates that the next character should be treated as a literal character rather than as a special character or string delimiter.
+\' single quote
+\" double quote
+\\ backslash
+\n newline
+\r carriage return <- é pra voltar o ponto de escrita pro inicio
+\t tab
+\b backspace
+\f form feed
+
+
+auth
+//https://firebase.google.com/docs/auth/web/manage-users?hl=pt-br
+
+a validação de forms via input html5 ajuda mttt, ele tem o método checkValidity e a propriedade validity.something
+além de mensagens de erro predefinidas como validationMessage, ajuda demais. 
+O max length é troll mas comparando a length e da maxLength fica tranks
+
+https://www.freecodecamp.org/news/javascript-get-current-date-todays-date-in-js/
+
+base64 funciona bem se tirar o comecinho da string e usar o uploadString do firebase
+
+https://stackoverflow.com/questions/4296530/ignore-parent-padding
+Como ignorar o parent padding ^^^^
+
+
+
+If you want to increase the height of the input field, 
+you can specify line-height css property for the input field.
+
+é boa prática envolver os inputs numa div única: removendo os outlines azuis, 
+podemos controlar o tamanho do input totalmente, criando borda, padding, como se fosse uma div mesmo.
+tirando o fato da line height né
+
+imput number dá pra dar scroll, só não curto mt o lance das setas pra cima e pra baixo
+apesar de ter regras, se eu quisesse fazer uma seta p cima e p baixo teria de usar input text
+
+procurar por css guidelines, criar os a + href, n é tão tranks, tem prop/context
+
+
+// Print each document 
+db.collection("categories")
+    .onSnapshot((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            console.log(doc.data()); // For data inside doc
+            console.log(doc.id); // For doc name})})
+
+aprendi que o throw error rola no js, tbm n precisei de useEffect já que a função era js normal e n react
+            
+            dá pra colocar o state na key de um componente, assim a animação dele reaparece td vez, já que a key muda conforme a prop muda
+
+            dá p renderizar componentes condicionalmente ss, no caso é que ele utilizava o valor de uma execução de função, então foi melhor usar uma condicional c use useEffect
+performance até melhorou ao refatorar.
+
+foi bom quebrar os cards para menos por linha, isso deixou eles mais grossos
+e perdeu um pouco do problema de estar muito alto. 
+Criei um container ao redor de um ele tbm, n tava absolute positioned
+
+inputs de texto são melhores que html number, legal né? O input number não 
+tem as funções com melhor user experience, o input text com javascript funciona melhor
+
+da pra colocar atributos in line, via o spread operator "...". EX: input {...rules}
+
+a propriedade pra acessar o valor de uma option de uma select é option.props.value
+
+
+
+
+
+dá pra fazer botão/código assincrono (que retorna valores) com event listeners:
+
+You're on the right track with returning a new Promise(). You can do something along these lines:
+
+async function btnClick(btn) {
+  return new Promise(resolve =>  btn.onclick = () => resolve());
+}
+
+then in your calling code:
+
+await btnClick(startButton);
+
+
+
+Handle do select inicial é feito via useEffect (baseado nas opções)
+
+
+toamr cuidado com upload de referencias de obj erradas, ou se lembrar de excluir o doc que 
+foi errado
+
+
+a vei dava pra ter colocado a img no firestore diretão, via stream url.
+sem precisar do storage... PS: n dava n, tem limite de 1mb e img mtas vezes passa diversos
+input file precisa de ref, msm que n use seja um elemento img diretamente, é importante pra fazer o upload.
+Sem ref precisaria compartilhar de alguma outra forma mais poluída.
+
+
+setdoc n é uma promise ,lol 
+
+
+o map só acontece uma vez, os states passados só são passados 1 vez então. N re-renderizam com state change. Melhor dar 
+location.reload() do que recriar todas as rotas c/ useEffect.
+
+Routes: link to n funfou, vou usar a href msm.
+
+ref usa .current, context nn.
+
+n dá pra dar map e mudar o state, mas dá pra mudar o provider do context wrapper. O re render funciona bem.
+PS: Para mudar os states, se usa o ...var . 
+
+
+Routes
+Note the :contactId URL segment. The colon (:) has special meaning, turning it into a "dynamic segment". Dynamic segments will match dynamic (changing) values in that position of the URL, like the contact ID. We call these values in the URL "URL Params", or just "params" for short.
+These params are passed to the loader with keys that match the dynamic segment. For example, our segment is named :contactId so the value will be passed as params.contactId
+
+createBrOWSERRouter
+    CRIAR UM COMPONENTE REI, QUE CONTENHA STATE CAR / ITENS, PATH SAO CHILDS
+    USE CONTEXT OR OUTLET TO PASS PROPS BETWEEN COMPONENTS
+A primeira rota é a rota rei
+
+
+loader
+
+Each route can define a "loader" function to provide data to the route element before it renders.
+
+o do this you simply add a colon before the url part that should be dynamic. Example:
+
+<BrowserRouter>
+  {/* Dynamic Component */}
+  <Route path="heroes/:id" component={Hero} />
+</BrowserRouter>
+
+Also you can use the useParams hook from react-router-dom to get the dynamic value for use in the page created dynamically. Example:
+
+import { useParams } from "react-router-dom";
+
+const Hero = () => {
+
+    const params = useParams();
+    // params.id => dynamic value defined as id in route
+    // e.g '/heroes/1234' -> params.id equals 1234
+
+    return (...)
+}
+ e em cada Hero só retornar valor caso seja = a algum valor do Hero
+ É JS. 
+
+td que for digitado lá no :url vai aparecer na pag, então usa o JS pra verificar
+
+é melhor api requests retornarem um valor, do que alterarem na propria request. 
+
+É uma boa prática colocar o nome da classe como a própria propriedade abrangida, exemplo: cursor-pointer
+
+Dá p retornar JSX null tranquilo, com state tankando

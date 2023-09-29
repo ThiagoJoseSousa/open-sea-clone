@@ -1,0 +1,165 @@
+.collection-creation{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.collection-creation__item-wrapper{
+    display: flex;
+    width: 100%;
+}
+
+.collection-creation__item-input{
+    line-height:1.5rem;
+    width: 100%;
+    padding: 2px 1px;    
+    border-style: none;
+    outline: none;
+    font-size: 1rem;
+}
+
+.collection-creation__input-message{
+    margin: auto 0.5rem;
+    width: 50%;
+}
+
+.creation-form{
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    margin: 1.5rem;
+    padding: 1.5rem;
+    width: calc(100% - 1.6rem);
+}
+
+.creation-form__header{
+    padding-bottom: 1.5rem;
+}
+
+.creation-form__header h3{
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 2rem;
+}
+
+.hr-paddingless{
+    width: calc(100% + 3rem) ;
+    margin-left: -1.5rem;
+    color:  rgba(0, 0, 0, 0.3);
+}
+
+.collection-creation__form{
+    margin-top: 1.5rem;
+}
+
+.form__item-wrapper{
+    border-style: solid;
+    border-radius: 1rem;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.3);
+    margin: auto;
+    width: 50%;
+    padding: 12px;
+}
+
+.form__item-wrapper--card{
+    width: 100%;
+}
+
+.form__item-money{
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.collection-creation__image{
+    min-height: 150px;
+    width: 100%;
+    object-fit: cover;
+    background-color: grey;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+.form__h4{ 
+
+    font-weight: 600;
+    margin-top: 24px;
+}
+
+select {
+    width: 50%;
+padding: 12px;
+font-size: 1rem;
+background-color: transparent;
+}
+
+.collection-creation__image-wrapper{
+    padding: 12px;
+    width: 49%;
+}
+
+.collection-creation__input-description{
+    border-style: solid;
+    border-radius: 1rem;
+    border-width: 1px;
+    height: 7rem;
+    width: 100%;
+    text-indent: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.anchor-styleless{
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.collection-creation__form-notification{    
+    animation: notificationAnimation 5s;
+    animation-fill-mode: forwards;
+    background-color: white;
+    bottom: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    font-weight: 600;
+    padding: 0.75rem;
+    position: fixed;
+    right: 0;
+}
+
+.collection-creation__form-notification--miss{
+    color: rgba(255, 7, 7);
+}
+
+.collection-creation__form-notification--right{
+    color: rgb(3, 116, 5);
+}
+
+.image-input{
+    display: none;
+}
+
+@keyframes notificationAnimation {
+    0%{
+        transform: translateX(0);
+    }
+    20%{
+        transform: translateX(calc(-50vw + 100%));
+    }
+    80%{
+        transform: translateX(calc(-50vw + 100%));
+        opacity: 100%;
+    }
+    100%{
+        transform: translateX(calc(-50vw + 100%));
+        opacity: 0%;
+    }
+}
+
+/*https://opensea.io/drops cart form botão + input text*/
