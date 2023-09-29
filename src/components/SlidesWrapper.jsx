@@ -9,8 +9,6 @@ export default function SlidesWrapper({collectionsSlides, title, categoryFilter}
       <Swiper
         modules={[Navigation]}
         navigation
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log("slide change")}
         slidesPerView="auto"
         breakpoints={{
           600: {
@@ -26,7 +24,6 @@ export default function SlidesWrapper({collectionsSlides, title, categoryFilter}
         className="landing-items__ul"
       >
 
-        {/* <SwiperSlide className="landing-items__li">{collectionsSlides && collectionsSlides[0]}</SwiperSlide>  */}
       {
         collectionsSlides &&
         collectionsSlides.map((slide)=> {

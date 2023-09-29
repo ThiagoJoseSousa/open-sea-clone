@@ -1,22 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
-import "./assets/navbar.css";
-import "./assets/main.css";
+
+import "./assets/style/navbar.css";
+import "./assets/style/main.css";
+
 import { createBrowserRouter ,RouterProvider } from "react-router-dom";
-import RankingContainer from "./components/RankingContainer.jsx";
-import SlidesContainer from "./components/SlidesContainer";
 
 import Root from "./routes/root.jsx";
 import CollectionPage from "./routes/CollectionPage.jsx";
 
 import ErrorPage from "./error-page.jsx";
-import NavBarContainer from "./components/NavbarContainer.jsx";
-import fetchCollections from "./components/fetchCollections.js";
+import NavBarContainer from "./pages/NavbarContainer.jsx";
+import fetchCollections from "./data/fetchCollections.js";
 
 import UserCollections from "./routes/userCollections.jsx";
 
-import ItemPage, { itemLoader } from "./routes/ItemPage.jsx";
+import ItemPage from "./routes/ItemPage.jsx";
 import MainPage from "./routes/MainPage.jsx";
 
 const router = createBrowserRouter(

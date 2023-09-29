@@ -1,6 +1,3 @@
-import { useState, useContext, useEffect } from "react";
-import { CollectionContext } from "../App";
-import { getFirestoreDocs } from "../data/firebase";
 import { useOutletContext } from "react-router-dom";
 import { v4 } from "uuid";
 
@@ -10,7 +7,6 @@ function CarItem ({itemData, i, cartEvents}){
             <img src={itemData?.img} className="item__img" alt="proposital"/>
         </div>
         <div className="item__data">
-            { /*make firebase items for a collection */}
             <span className="data__text data__text--title">{itemData?.name}</span>
             <span className="data__text">{itemData?.collection}</span>
             <span className="data__text data__text--uppercase">{itemData?.price} {itemData?.coin}</span>
@@ -41,7 +37,6 @@ export default function NavbarCar({showCar}) {
         return price
     }
 
-    const collections = useContext(CollectionContext);
 
     //where should viewCar state stay? navcontakner, which contasins more jsx buttons in an obj too
 

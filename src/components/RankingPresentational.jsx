@@ -25,7 +25,6 @@ export default function RankingPresentational({ rankingState,itemSortState, setI
                 }
                 onClick={() => {
                   setItemSortState("volume");
-                  console.log('clicked', `${itemSortState}`);
                 }}
               >
                 Top

@@ -1,6 +1,4 @@
 
-//https://www.alphr.com/create-collection-opensea/
-
 import { useState } from "react"
 import { createUser,login } from "../data/firebase";
 import { useOutletContext } from "react-router-dom";
@@ -18,7 +16,6 @@ import { useOutletContext } from "react-router-dom";
                 accountObj[accountField] = e.target.value;
                 return accountObj;
             });
-            console.log(newAccountState)
         }
 
     return <div className="black">

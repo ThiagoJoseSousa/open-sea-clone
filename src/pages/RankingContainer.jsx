@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
-import RankingPresentational from "./RankingPresentational";
+
+import "../assets/style/ranking.css";
+
+import RankingPresentational from "../components/RankingPresentational";
 import checkIcon from '../assets/check-mark.svg';
 import { Link, useOutletContext } from "react-router-dom";
 import { v4 } from "uuid";
@@ -36,28 +39,10 @@ export default function RankingContainer(){
     const [rankingState, setRankingState] = useState();
     const {collectionsState} = useOutletContext();
     const collections = collectionsState[0];
-    console.log(collections);
-    // useEffect(() => {
-    // createItemList();
-    // }, [itemSortState]);
-  
-    // const createItemList = async () => {
-    //   const querySnapshot = await getFirestoreDocs();
-    //   const allImagesArr = await Promise.all(
-    //     sortedArr.map((item) =>  item.img ? getDataFromStorage(pathStrFormatter(item.img)) : 'no img' )
-    //     );
-  
-    // const collectionsArr = queryToArr(querySnapshot);
-    // const sortedArr = sortItemsByGreatest(collectionsArr, itemSortState);
-    // const sortedAndImagedArr = sortedArr.map((item, i) => {
-    //   item.img = allImagesArr[i];
-    //   return item;
-    // });
 
     useEffect(
       ()=>{
         if (collections){
-        console.log("collections not empty", collections);
         const sortedArray = sortItemsByProperty(collections, itemSortState);
         const jsxArray = sortedArray.map((item, position) => <CreateRankingItemJSX itemData={item} i={position} key={v4()} />);
         const dividedArr = divideArrIntoTwo(jsxArray);

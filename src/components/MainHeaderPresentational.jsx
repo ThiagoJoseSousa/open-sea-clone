@@ -1,7 +1,8 @@
-import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
+
+import "../assets/style/mainheader.css"
 
 export default function MainHeaderPresentational({selectedCategory, handleCheck}) {
 

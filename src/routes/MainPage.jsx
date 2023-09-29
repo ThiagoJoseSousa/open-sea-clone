@@ -1,8 +1,7 @@
-import MainHeaderContainer from "../components/MainContainer"
-import RankingContainer from "../components/RankingContainer"
-import SlidesContainer from "../components/SlidesContainer"
+import MainHeaderContainer from "../pages/MainContainer"
+import RankingContainer from "../pages/RankingContainer"
+import SlidesContainer from "../pages/SlidesContainer"
 import HomeFooter from "../components/HomeFooter"
-import { Link } from "react-router-dom"
 
 export default function MainPage (){
     return (

@@ -1,15 +1,12 @@
 import menuDot from "../assets/menu-dot-horizontal-filled.svg";
 import shareIcon from "../assets/share.svg";
 import ethereumIcon from "../assets/ethereum-1.svg";
-import headerBG from "../assets/buy page header.jpg";
-import tallImg from "../assets/tall img.jpg";
 
 import openIcon from "../assets/open.svg";
 import favoriteIcon from "../assets/favorite.svg";
 
 import eyeIcon from "../assets/eye.svg";
 import databaseIcon from "../assets/database.svg";
-import categoryIcon from "../assets/category.svg";
 import userIcon from "../assets/user.svg";
 
 import arrowIcon from "../assets/angel-down.svg";
@@ -17,10 +14,12 @@ import carIcon from "../assets/shopping-cart.png";
 
 import tagIcon from "../assets/tag.svg";
 import clockIcon from "../assets/clock.svg";
+
+import "../assets/style/item-page.css"
+
 import { Link, useOutletContext, useParams } from "react-router-dom";
 import { getDataFromFirestore, getDataFromStorage } from "../data/firebase";
 import { useEffect, useState } from "react";
-import ErrorPage from "../error-page";
 
 export async function itemLoader({title,itemName}){
   const itemData= await getDataFromFirestore(['Collections/', title , '/Items/' , itemName]);
@@ -39,11 +38,7 @@ export default function ItemPage() {
       setItem(retrieve);
     })()
   },[])
-  // if (!item) {
-  //   return <ErrorPage />
-  // }
 
-  // request the item here, 
   if (!item) {return null}
   return (
     <main>
@@ -221,7 +216,6 @@ export default function ItemPage() {
         </div>
       </div>
 
-      {/*Fazer buy section, description, details e more from this  */}
     </main>
   );
 }

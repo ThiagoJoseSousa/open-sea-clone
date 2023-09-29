@@ -1,13 +1,10 @@
-import { useEffect, useState, useRef } from "react";
 import diamondGif from '../assets/diamond 3d.gif';
 
 export default function MainPresentational({
   mainData,
   launchDate,
-  setLaunchDate,
   targetIcon,
-  checkIcon,
-  countDownKey,
+  checkIcon
 }) {
 
   return (

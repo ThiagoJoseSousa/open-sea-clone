@@ -1,37 +1,25 @@
-/*carrega as minhas coleções em slides, clicar abre o form delas imeira coisa é criar o form
-e tem o form de criar novas . Acho q vou usar query do firebase p achar minhas coll
-
-dá pra fazer query por dados ss, talvez fazer colocar id nas coleções e o criador fazer query a aprtir desse id 
-https://firebase.google.com/docs/firestore/query-data/queries?hl=pt-br
-*/
-import { useState, useRef, useEffect, useContext } from "react"
-import '../assets/userCollections.css'
+import { useState, useRef, useEffect, useContext, createContext } from "react"
 import { createOrUpdateDoc, uploadImageToStorage } from "../data/firebase";
-import { CollectionContext } from "../App";
-import SlidesContainer from "../components/SlidesContainer";
-import { confirmPasswordReset } from "firebase/auth";
-
+import SlidesContainer from "../pages/SlidesContainer";
 import { useOutletContext } from "react-router-dom";
 import { v4 } from "uuid";
-/* fazer o form de 2013 : https://designmodo.com/ux-form-validation/ (só o começo é feio)*/
 
-/* auth erros dps, forms é mais facil pois o firestore n tem mt erro,
- é apenas validação por JS (seguindo o form 2013) */
- const messagesObj={
-title:"It's the first title the user will see from your arts. ",
-creator:"The author or group that created all the arts inside this collection.",
-image:"It's the first image the user will see from your arts.",
-floorPrice:"It's the cheapest price for an item from your collection.",
-volume:"Total money gathered from this collection.",
-category:"category is selected.",
-earnings:"How much in percentage does the creator earn minus the expenses?",
-owners:"How many people own art from this collection?",
-items:"How many items this collection have?",
+import '../assets/style/userCollections.css'
 
+const messagesObj={
+    title:"It's the first title the user will see from your arts. ",
+    creator:"The author or group that created all the arts inside this collection.",
+    image:"It's the first image the user will see from your arts.",
+    floorPrice:"It's the cheapest price for an item from your collection.",
+    volume:"Total money gathered from this collection.",
+    category:"category is selected.",
+    earnings:"How much in percentage does the creator earn minus the expenses?",
+    owners:"How many people own art from this collection?",
+    items:"How many items this collection have?",
+    
 }
+const CollectionContext= createContext();
 
-/*https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation#validating_forms_using_javascript
-*/
 const categories= ["Gaming", "Art", "Memberships", "Music", "PFPs", "Photography"]
 export const validationFuncs = {
     text:function blockNonLetters(input, setMessagesState){
@@ -57,21 +45,16 @@ export const validationFuncs = {
   }
   }
 export default function UserCollectionsPresentational (){
-    // const [messagesState, setMessagesState] = useState(messagesObj); // formContainer
-    // const [formState, setFormState] = useState({}) //formContainer
-    // const [notificationState, setNotification] = useState(); //formContainer 
-    const allCollections = useContext(CollectionContext); // previousSlidesContainer
-    const {userStatus} = useOutletContext();
+
+    const {userStatus, collectionsState} = useOutletContext();
     const [userState, setUserState] = userStatus;
+    const [allCollections, setCollections] = collectionsState;
 
     return (
         <div className="collection-creation">
-             {allCollections && <CollectionContext.Provider value={filterByEmail(allCollections)}>
-                <SlidesContainer title={"Previously created collections:"} />
-            </CollectionContext.Provider> } 
             <PrevCollContainer userEmail={userState?.email}/>
 
-            <FormContainer userEmail={userState?.email}/>
+            {userState && <FormContainer userEmail={userState?.email}/>}
         </div>
     )
 }
@@ -93,15 +76,6 @@ function FormContainer({userEmail}){
     <hr className="hr-paddingless"/>
     <form className="collection-creation__form">
 
-    {/* separate into two objects, input type/validation */}
-    {/* inputInfo, validationInfo */}
-    {/* inputInfo={{
-        subheader:"Items", setFormState:setFormState
-    }} 
-    validationInfo={{
-       message:messagesState.items, rulesObj:{min:0}
-    }}
-    */}
     <CollectionItem inputInfo={{subheader:"Title", setFormState}} validationInfo={{message:messagesState.title, inputType:"text", rulesObj:rulesRef.current.title}}/>
     <CollectionItem inputInfo={{
         subheader:"Creator", setFormState
@@ -150,7 +124,7 @@ function FormContainer({userEmail}){
 }
 
 function PrevCollContainer ({userEmail}){
-    const allCollections = useContext(CollectionContext); // previousSlidesContainer
+    const allCollections = useContext(CollectionContext);
     const [myCollections, setMyCollections] = useState(undefined);
     useEffect(()=>{
         if (allCollections){
@@ -177,7 +151,6 @@ function CollectionDescription({setFormState}){
 
 
 function CollectionItem({inputInfo,validationInfo}){
-    // use subheader to change formstate obj 
     const [messageState, setMessagesState] = useState();
     const {subheader,setFormState} = inputInfo;
     const {message, inputType, rulesObj} = validationInfo;
@@ -188,33 +161,10 @@ function CollectionItem({inputInfo,validationInfo}){
         <input className="collection-creation__item-input"
      placeholder={subheader} {...rulesObj} type="text"
      onChange={
-        // arg list: e,setformstate, subheader, setMessage, messageEle q na verdade é o input que vai ser validado, 
-        //rules obj. fn retrieveInputDataAndValidate(){}
         (e)=>{
             if (validationFuncs[inputType](e.target,setMessagesState)){
                 retrieveInputDataAndValidate({e,setFormState,subheader,setMessagesState,rulesObj})   
             }
-// setFormState((prevState) => {
-//     const newState={...prevState};
-    
-//     newState[subheader.toLowerCase()]=e.target.value;
-//     console.log(prevState);
-//     return newState
-// }); 
-
-// setMessage(prevState=> {
-//     const validationBool = messageEle.current.checkValidity()
-//     if (e.target.value.length === rulesObj?.maxLength) {return `✔️ Character limit reached (${rulesObj.maxLength})`}
-//     if(!validationBool){
-//         if (messageEle.current.validity.tooLong) {return undefined}
-//         if (messageEle.current.validity.valueMissing) {return undefined}
-//         return ` ❌ ${messageEle.current.validationMessage}`;
-//     }
-//     if(validationBool){
-//         return " ✔️ Valid input"
-//     }
-
-// })
 }
 }/>    
         </div>
@@ -230,12 +180,10 @@ export function retrieveInputDataAndValidate({e,setFormState,subheader,setMessag
         const newState={...prevState};
         
         newState[subheader.toLowerCase()]=input.value;
-        console.log(prevState);
         return newState
     }); 
     
     setMessagesState(prevState=> {
-        //VALIDATE BETTER (INPUT IS TEXT)
         const validationBool = input.checkValidity();
         if (input.value.length === rulesObj?.maxLength) {return `✔️ Character limit reached (${rulesObj.maxLength})`}
         if(!validationBool){
@@ -302,13 +250,8 @@ onChange={async (e)=>{
 export async function readImage(file){
     const reader = new FileReader();
 
-    
-    //pseudo-code async load;
-    // I'll make a new Promise(function that resolves promise with resolve())
-
     const dataURL = new Promise ((resolve)=>{
         reader.addEventListener('load', (event) => {
-            //load is fired once read. 
             const fileData = event.target.result;
           const filePath= `Collections/CollectionsImages/${file.name}`;
           resolve({filePath, fileData})
@@ -347,9 +290,6 @@ export function checkIfFilled(formState,setNotification){
      setNotification('✔️ Valid form, trying to submit!');
      return true;
 }
-//na real queria fazer uma notificação pop up, uma div com transX e position abs
-//itll rerender , no need to play animation from js
-//where to evoke this?
 export function FormNotification({notificationState}){
     return  <div key={notificationState} className={`collection-creation__form-notification ${ notificationState[0] === "❌" ? "collection-creation__form-notification--miss" : "collection-creation__form-notification--right"}`}>
         {notificationState}
@@ -372,13 +312,7 @@ function submitForm(e,formState, setNotification, imageRef, userEmail){
                 formState.img, imageRef.current.src
                 );
             }
-                // setTimeout(()=>{
-    //     setNotification(null)
-    // }, 1000)
     }
-
-// it'll redirect to the new collection page, which will have a + and an edit on items 
-// once the logged user created the collection. 
 
 function filterByEmail(collections, userEmail){
     return collections.filter((collection)=> {
@@ -386,10 +320,4 @@ function filterByEmail(collections, userEmail){
     })
 }
 
-
-/* fields of items */
-// coin, collection, img, name, price, rarity
-// vai ser implementado na coleção... Após criar uma coleção o usuário é redirecionado apra a mesma.
-// Um botão + aparece e ele pode enviar esse form.
-// implementa o botão, dps liga pro redirecionamento, ele é opcional
 

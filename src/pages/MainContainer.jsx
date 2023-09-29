@@ -1,7 +1,7 @@
-import MainHeaderPresentational from "./MainHeaderPresentational";
+import MainHeaderPresentational from "../components/MainHeaderPresentational";
 import { useState, useEffect, useRef } from "react";
 import { getDataFromFirestore, getDataFromStorage } from "../data/firebase";
-import MainPresentational from "./MainPresentational";
+import MainPresentational from "../components/MainPresentational";
 import currentCountdown from "../utils/date";
 
 const initialTime= {

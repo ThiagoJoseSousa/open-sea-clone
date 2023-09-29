@@ -21,11 +21,6 @@ import { logOut } from "../data/firebase";
 import { useOutletContext, Link } from "react-router-dom";
 
 export default function Navbar({showCar, showAuth}) {
-  //make login firebase
-  // decide structure first
-  // i'll need state for buttons
-  // create a file called nav buttons which export multiple buttons and contaienr will evoke them
-  // this will be easy, there are only 3 btn components
   const {userStatus} = useOutletContext(); 
   const [userState,setUserState] = userStatus;
   return (
@@ -101,18 +96,19 @@ export default function Navbar({showCar, showAuth}) {
         </li>
 
         <li className="nav__account desktop--show">
-          <button className="nav__button--account cursor-pointer" onClick={!userState?.user && showAuth}>
+          <Link to={userState && "../UserCollections"} className="anchor-styleless">
+          <button className="nav__button--account cursor-pointer" onClick={() => userState? null : showAuth()}>
             <img src={userState? plusIcon : walletIcon } />
-            <div> {userState? "Create collection" : "Connect wallet"} {console.log(userState, 'USERsTATE')}</div>
+            <div> {userState? "Create collection" : "Connect wallet"}</div>
 
           </button>
-            
-          <button className="nav__button--account hover-list cursor-pointer" onClick={!userState?.user && showAuth}>
+          </Link>
+          <button className="nav__button--account hover-list cursor-pointer" onClick={() => userState? null : showAuth()}>
             <img src={userState? gearIcon : profileIcon } />
           </button>
           <ul>
             <HoverListBtn description={"Profile"} onClick={!userState && showAuth}/>
-            <Link to="/UserCollections">
+            <Link to="../UserCollections">
             <HoverListBtn description={"My Collections"} />
             </Link>
             <HoverListBtn description={"Watchlist"} />

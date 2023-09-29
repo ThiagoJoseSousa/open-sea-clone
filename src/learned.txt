@@ -472,3 +472,6 @@ td que for digitado lá no :url vai aparecer na pag, então usa o JS pra verific
 É uma boa prática colocar o nome da classe como a própria propriedade abrangida, exemplo: cursor-pointer
 
 Dá p retornar JSX null tranquilo, com state tankando
+
+poderia ter criado a pasta de styles antes, ia economizar muito tempo durante o projeto procurando pelos CSS. Anyways, sempre crie daqui em diante.
+(é inevitável)

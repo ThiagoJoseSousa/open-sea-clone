@@ -47,7 +47,7 @@
 
 .ranking__results-wrapper {
   width: 100%;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .ranking__results {

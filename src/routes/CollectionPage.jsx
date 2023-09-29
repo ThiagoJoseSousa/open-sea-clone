@@ -1,24 +1,21 @@
-import headerBG from "../assets/buy page header.jpg";
+
 import menuDot from "../assets/menu-dot-horizontal-filled.svg";
 import shareIcon from "../assets/share.svg";
 import filterIcon from "../assets/filter.svg";
 import sortIcon from "../assets/sort.svg";
 import marketIcon from "../assets/shopping-cart.png";
+import "../assets/style/buypage.css"
 
 import { createOrUpdateDoc, getDataFromStorage, getFirestoreDocs, uploadImageToStorage } from "../data/firebase";
-import { useEffect, useState, useRef, useContext } from 'react';
-import { Link, useLocation, useOutletContext, useParams } from "react-router-dom";
+import { useEffect, useState, useRef } from 'react';
+import { Link, useOutletContext, useParams } from "react-router-dom";
 
-import { queryToArr } from "../components/fetchCollections";
+import { queryToArr } from "../data/fetchCollections";
 import { FormNotification, mapOptions, readImage, retrieveInputDataAndValidate } from "./userCollections";
 
 import { validationFuncs} from "./userCollections";
-import { UserContext } from "../App";
 import ErrorPage from "../error-page";
 import { v4 } from "uuid";
-//refactor
-
-//CollectionContainer
 
 function findCollection({collectionsState, title}){
   let item;
@@ -48,29 +45,6 @@ export default function CollectionContainer() {
         setItemsState(itemsWithImage)
       }
       setItems()
-    //   function getCollectionItems(){
-
-    //     let itemsArray;
-    //     getFirestoreDocs(["Collections",title,"/Items"]).then((data)=> {
-    //      itemsArray = queryToArr(data);
-        
-    //      }).then(()=>{
-    //       Promise.all(itemsArray.map((item)=>{
-    //       return item.img ? getDataFromStorage(item.img) : 'no img';
-    //     }
-    //     )).then((allImagesArr)=>{
-    //       const sortedAndImagedArr = itemsArray.map((item, i) => {
-    //         return {...item, img:allImagesArr[i]}; 
-            
-            
-    //       });
-    //       setItemsState(sortedAndImagedArr)
-          
-    //     });
-    //   })
-    // }
-
-
      },[]
  )
      return <CollectionPresentational collectionInfo={collection} cartEvents={cartEvents} itemsState={itemsState}/>
@@ -78,9 +52,6 @@ export default function CollectionContainer() {
 
        async function getCollectionItems(title){
 
-         
-
-         //const items = await get...
         const items = await getFirestoreDocs(["Collections",title,"/Items"]);
         const itemsArray = queryToArr(items);
         const imagesArray = await Promise.all(itemsArray.map((item)=>{
@@ -88,19 +59,7 @@ export default function CollectionContainer() {
         }));
         const itemsWithImage = itemsArray.map((item, i) => {
           return {...item, img:imagesArray[i]}; 
-        })
-        //  getFirestoreDocs(["Collections",title,"/Items"]).then((data)=> {
-        //   itemsArray = queryToArr(data);
-        //  //const retrievedImages =
-        //   }).then(()=>{
-        //    Promise.all(itemsArray.map((item)=>{
-        //    return item.img ? getDataFromStorage(item.img) : 'no img';
-        //  }
-        //  // itemsWithImage
-        //  )).then((allImagesArr)=>{
-        //    const sortedAndImagedArr = itemsArray.map((item, i) => {
-        //      return {...item, img:allImagesArr[i]}; 
-            
+        })   
             return itemsWithImage
         }
 
@@ -122,8 +81,6 @@ function CollectionPresentational ({collectionInfo,  itemsState, cartEvents}){
   return (
     <main className="buypage__main">
       
-      
-      {/*PS:there is an wrapper now, may bug style.  */}
       <CollectionHeader collectionImg={collectionInfo.img}/>
         <CollectionInfoPresentational collectionInfo={collectionInfo}/>
         <CollectionNavigationPresentational />
@@ -179,6 +136,7 @@ function PostCardContainer (){
   const [messageState, setMessagesState]= useState();
   const imageRef= useRef();
   const rulesRef =useRef({rarity:{minLength:0, maxLength:10}, price:{minLength:0, maxLength:5}});
+  const {title} = useParams();
   return (
     <>
   <form className="product__card product-info__wrapper--submit">
@@ -193,27 +151,6 @@ function PostCardContainer (){
     }} type="file" required accept="image/png, image/jpeg" className="image-input" id="item__image"/>
     <label htmlFor="item__image" className="buy-btn buy-btn--file">Upload image</label>
     {messageState}
-{/* 
-    <div className="form__item-wrapper form__item-wrapper--card">
-    <h4 className="semi-bold semi-bold-large">Name</h4>
-    <input onChange={(e)=>{
-      //refatorar collectionitem onChange p deixar a funcao publica
-      //validation pode ser aquelas abinhas, mas em :focus
-    retrieveInputDataAndValidate({e,setFormState, subheader:"name",setMessage:setMessagesState, rulesObj:rulesRef.current})
-    }}type="text" maxLength={rulesRef.current.maxLength} className="collection-creation__item-input" placeholder="name" name="name" id="" />
-    {messageState}
-    </div> */}
-
-    
-    {/* <h4 className="semi-bold semi-bold-large">Quantity</h4>
-    <div className="form__item-wrapper form__item-wrapper--card">
-    <input onChange={(e)=>{
-      retrieveInputDataAndValidate({e,setFormState, subheader:"rarity",setMessage:setMessagesState, rulesObj:null})
-    }} type="number" className="collection-creation__item-input" placeholder="quantity" name="rarity" id="" />
-    {messageState}
-    </div> 
-    setFormState, subheader,inputType, rulesObj 
-    */}
 
     <ItemInput inputType={"text"} setFormState={setFormState} subheader={"name"} rulesObj={rulesRef.current.rarity}/>
     <ItemInput inputType={"number"} setFormState={setFormState} subheader={"quantity"} rulesObj={rulesRef.current.rarity}/>
@@ -222,15 +159,11 @@ function PostCardContainer (){
     <button className="product__buy-bar product__buy-bar--submit buy-btn" onClick={(e)=>{
       e.preventDefault()
       if (checkIfFilled(formState, setNotification)){
-
-        const url=window.location.href; // or use the ref
-        const collection= url.split('/')[3];
-        const arrFirestorePath = ["Collections", collection, "Items", formState.name]
+        const arrFirestorePath = ["Collections", title, "Items", formState.name];
         createOrUpdateDoc(arrFirestorePath, formState);
-        setNotification("✔️ Your collection was created!") 
+        setNotification("✔️ Your item was created!") 
         uploadImageToStorage(formState.img, imageRef.current);
       }
-      //geturl
     }}>
       SUBMIT
       </button>
@@ -253,8 +186,6 @@ function ItemInput ({inputType, setFormState, subheader, rulesObj}){
   return <div className="form__item-wrapper form__item-wrapper--card">
   <h4 className="semi-bold semi-bold-large">{subheader}</h4>
   <input onChange={(e)=>{
-    //refatorar collectionitem onChange p deixar a funcao publica
-    //validation pode ser aquelas abinhas, mas em :focus
   if (validationFuncs[inputType](e.target,setMessagesState)){
     retrieveInputDataAndValidate({e,setFormState, subheader, setMessagesState, rulesObj})
   }
@@ -295,10 +226,7 @@ function PriceInput({inputType, setFormState, subheader, options,rulesObj }){
     </div></>
 }
 
-//collectionitem validate too
-
 function ItemCard ({item,i,cartEvents}) {
-  console.log('item card', item.item)
   return (<article className="product__card">
     <Link to={location.href + '/' + item.name} className="anchor-styleless">
   <div className="product-container">

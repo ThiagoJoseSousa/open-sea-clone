@@ -7,6 +7,8 @@ import twitterIcon from "../assets/twitter.png";
 import wechatIcon from "../assets/wechat.png";
 import youtubeIcon from "../assets/youtube.png";
 
+import "../assets/style/homefooter.css"
+
 export default function HomeFooter() {
   return (
     <footer className="home__footer">
