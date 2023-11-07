@@ -115,18 +115,21 @@ label.nav__button {
   height: 72px;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .hamburger__link-btn {
   align-items: center;
   background-color: transparent;
   border-style: none;
+  cursor: pointer;
   display: flex;
   font-weight: 600;
   font-size: 1rem;
-  height: 32px;
   padding: 0px 10px;
   width: 100%;
+  position: absolute;
+  inset: 0;
 }
 
 .hamburger__link-btn div {
@@ -463,10 +466,6 @@ border: 0;
   font-weight: 400;
 }
 
-.scrolloff{
-  overflow-y: hidden;
-}
-
 .auth{
   background: white;
   border-radius: 1rem;
@@ -475,7 +474,6 @@ border: 0;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 25%;
 }
 
 .auth__form{

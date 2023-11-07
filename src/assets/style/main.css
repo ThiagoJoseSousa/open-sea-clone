@@ -6,6 +6,10 @@
   font-family: "Poppins", sans-serif;
 }
 
+.unavailable{
+  color: red;
+}
+
 body {
   padding-top: 72px;
 }

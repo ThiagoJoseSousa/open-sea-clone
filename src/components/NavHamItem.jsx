@@ -1,7 +1,7 @@
 import arrowIcon from "../assets/angel right.svg";
-export default function HamBtn ({description, icon}) {
+export default function HamBtn ({description, icon, onClick, available}) {
     return (<li className="hamburger__link cursor-pointer">
-   <button className="hamburger__link-btn">
+   <button className={`hamburger__link-btn ${available ? null : "unavailable"}`} onClick={onClick}>
      <img
        src={icon}
        alt=""

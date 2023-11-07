@@ -27,21 +27,30 @@ export default function Navbar({showCar, showAuth}) {
     <nav className="nav">
       <ul className="nav__ul">
         <li className="nav__container nav__button--hamburger">
-          <input type="checkbox" id="nav__hamburger" />
+          <input type="checkbox" id="nav__hamburger" key={window.location.pathname}/>
           <label
             htmlFor="nav__hamburger"
-            className="nav__button nav__button--hamburger"
+            className="nav__button nav__button--hamburger cursor-pointer"
           >
             <div className="nav__hamburger "></div>
           </label>
           <ul className="hamburger__navigation">
+
+            {!userState && <HamBtn description={"Log in"} icon={profileIcon} available={true} onClick={() => userState? null : showAuth()}/>}
+            <Link to={'../UserCollections'}>
+            <HamBtn description={"Create"} icon={pencilIcon} available={true}/>
+            </Link>
+            {userState && <HamBtn description={"Log out"} icon={profileIcon} onClick={()=>{
+              logOut();
+              setUserState(undefined);
+            }} available={true}/>} 
             <HamBtn description={"Drops"} icon={calendarIcon} />
             <HamBtn description={"Stats"} icon={chartIcon} />
             <HamBtn description={"Resources"} icon={resourcesIcon} />
-            <HamBtn description={"Create"} icon={pencilIcon} />
             <HamBtn description={"OpenSea Pro"} icon={crownIcon}/>
             <HamBtn description={"Language"} icon={globeIcon}/>
             <HamBtn description={"Night Mode"} icon={weatherIcon}/>
+
           </ul>
         </li>
         
@@ -107,9 +116,9 @@ export default function Navbar({showCar, showAuth}) {
             <img src={userState? gearIcon : profileIcon } />
           </button>
           <ul>
-            <HoverListBtn description={"Profile"} onClick={!userState && showAuth}/>
-            <Link to="../UserCollections">
-            <HoverListBtn description={"My Collections"} />
+            <HoverListBtn description={"Profile"} available={true} onClick={!userState && showAuth}/>
+            <Link to="../UserCollections" className="anchor-styleless">
+            <HoverListBtn description={"My Collections"} available={true}/>
             </Link>
             <HoverListBtn description={"Watchlist"} />
             <HoverListBtn description={"Create"} />
@@ -119,10 +128,10 @@ export default function Navbar({showCar, showAuth}) {
             <HoverListBtn description={"Settings"} />
             <HoverListBtn description={"Language"} />
             <HoverListBtn description={"Night Mode"} />
-            {userState && <HoverListBtn description={"Log out"} onClick={()=>{
+            {userState && <HoverListBtn description={"Log out"}  onClick={()=>{
               logOut();
               setUserState(undefined);
-            }} />} 
+            }} available={true}/>} 
           </ul>
         </li>
 

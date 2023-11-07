@@ -474,4 +474,4 @@ td que for digitado lá no :url vai aparecer na pag, então usa o JS pra verific
 Dá p retornar JSX null tranquilo, com state tankando
 
 poderia ter criado a pasta de styles antes, ia economizar muito tempo durante o projeto procurando pelos CSS. Anyways, sempre crie daqui em diante.
-(é inevitável)
+(é inevitável). Talvez usado o form do router, e as classes mais pequenas e gerais no css.
